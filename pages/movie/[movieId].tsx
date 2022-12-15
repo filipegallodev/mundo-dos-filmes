@@ -100,7 +100,11 @@ const Movie = () => {
           <p>Gênero: {movieData.genres[0].name}</p>
           <p>Nota: {movieData.vote_average.toFixed(1)}</p>
           <p>Favoritado: {favorite ? "Sim" : "Não"}</p>
-          <p>{movieData.overview}</p>
+          <p>
+            {movieData.overview
+              ? movieData.overview
+              : "Nenhuma descrição fornecida."}
+          </p>
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
       ) : (
