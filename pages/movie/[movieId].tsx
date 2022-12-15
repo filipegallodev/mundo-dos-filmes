@@ -30,6 +30,37 @@ const Movie = () => {
     fetchingMovieData();
   }, [movieId]);
 
+  function handleFavoriteMovies() {
+    const jsonLocalFavorites = localStorage.getItem("favorite-movies");
+
+    if (jsonLocalFavorites) {
+      const arrayLocalFavorites = JSON.parse(jsonLocalFavorites);
+
+      if (arrayLocalFavorites.includes(movieData.id)) {
+        var newFavorites = addFavorite(arrayLocalFavorites);
+      } else {
+        var newFavorites = removeFavorite(arrayLocalFavorites);
+      }
+
+      localStorage.setItem("favorite-movies", JSON.stringify(newFavorites));
+    }
+
+    if (!jsonLocalFavorites) {
+      localStorage.setItem("favorite-movies", JSON.stringify([movieData.id]));
+    }
+  }
+
+  function addFavorite(arrayLocalFavorites: any) {
+    return arrayLocalFavorites.filter(
+      (favorite: any) => favorite !== movieData.id
+    );
+  }
+
+  function removeFavorite(arrayLocalFavorites: any) {
+    arrayLocalFavorites.push(movieData.id);
+    return arrayLocalFavorites.slice();
+  }
+
   if (loading) return <p>Carregando...</p>;
   return (
     <div>
@@ -38,6 +69,7 @@ const Movie = () => {
           <h2>
             {movieData.title} | ID: {movieId}
           </h2>
+          <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
       ) : (
         <p>Nada encontrado.</p>
