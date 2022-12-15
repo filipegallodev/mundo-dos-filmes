@@ -90,7 +90,17 @@ const Movie = () => {
           <h2>
             {movieData.title} | ID: {movieId}
           </h2>
+          <p>
+            Lançamento:{" "}
+            {movieData.release_date.replace(
+              /(\d+2)\-(\d+)\-(\d+)/g,
+              `$3/$2/$1`
+            )}
+          </p>
+          <p>Gênero: {movieData.genres[0].name}</p>
+          <p>Nota: {movieData.vote_average.toFixed(1)}</p>
           <p>Favoritado: {favorite ? "Sim" : "Não"}</p>
+          <p>{movieData.overview}</p>
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
       ) : (
