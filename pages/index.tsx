@@ -1,4 +1,5 @@
 import Head from "next/head";
+import MostPopular from "../components/Movies/MostPopular";
 
 import styles from "../styles/Home.module.css";
 
@@ -12,7 +13,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main></main>
+      <main>
+        <MostPopular />
+      </main>
     </>
   );
 }
