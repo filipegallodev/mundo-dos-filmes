@@ -13,7 +13,7 @@ const Movie = () => {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
-    async function fetchingMovieData() {
+    async function fetchMovieData() {
       try {
         setLoading(true);
         const res = await fetch(
@@ -22,12 +22,12 @@ const Movie = () => {
         const data = await res.json();
         setMovieData(data);
       } catch (err) {
-        console.log("Seguinte erro encontrado:" + err);
+        console.log("Seguinte erro encontrado: " + err);
       } finally {
         setLoading(false);
       }
     }
-    fetchingMovieData();
+    fetchMovieData();
   }, [movieId]);
 
   function handleFavoriteMovies() {

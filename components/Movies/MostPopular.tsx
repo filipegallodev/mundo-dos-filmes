@@ -11,7 +11,7 @@ const MostPopular = () => {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
-    async function fetchingPopularMoviesData() {
+    async function fetchPopularMoviesData() {
       try {
         setLoading(true);
         const res =
@@ -20,12 +20,12 @@ const MostPopular = () => {
         const data = await res.json();
         setPopularMoviesData(data.results);
       } catch (err) {
-        console.log("Seguinte erro encontrado:" + err);
+        console.log("Seguinte erro encontrado: " + err);
       } finally {
         setLoading(false);
       }
     }
-    fetchingPopularMoviesData();
+    fetchPopularMoviesData();
   }, []);
 
   function handleMovieRoute({ target }: any) {
