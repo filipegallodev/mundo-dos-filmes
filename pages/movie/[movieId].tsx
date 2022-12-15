@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -87,23 +88,47 @@ const Movie = () => {
     <div>
       {movieData ? (
         <div>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movieData.backdrop_path}`}
+            alt={movieData.title}
+          />
           <h2>
             {movieData.title} | ID: {movieId}
           </h2>
+          <p>{movieData.tagline}</p>
           <p>
-            Lançamento:{" "}
-            {movieData.release_date.replace(
-              /(\d+2)\-(\d+)\-(\d+)/g,
-              `$3/$2/$1`
-            )}
+            Duração:{Math.floor(movieData.runtime / 60)} horas{" "}
+            {Math.floor(movieData.runtime % 60)} minutos
           </p>
-          <p>Gênero: {movieData.genres[0].name}</p>
+          <h3>Detalhes</h3>
+          <p>
+            Ano: {movieData.release_date.replace(/(\d+)\-(\d+)\-(\d+)/g, `$1`)}
+          </p>
+          <p>
+            Gênero:{" "}
+            {movieData.genres.map((genre: any) => (
+              <span key={genre.name}>{genre.name} </span>
+            ))}
+          </p>
           <p>Nota: {movieData.vote_average.toFixed(1)}</p>
           <p>Favoritado: {favorite ? "Sim" : "Não"}</p>
           <p>
             {movieData.overview
               ? movieData.overview
               : "Nenhuma descrição fornecida."}
+          </p>
+          <h3>Informações extras</h3>
+          <p>
+            Orçamento:{" "}
+            {movieData.budget === 0
+              ? "Sem dados de orçamento."
+              : `R$ ${movieData.budget.toLocaleString("pt-BR")},00`}
+          </p>
+          <p>
+            Receita:{" "}
+            {movieData.revenue === 0
+              ? "Sem dados de receita."
+              : `R$ ${movieData.revenue.toLocaleString("pt-BR")},00`}
           </p>
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
