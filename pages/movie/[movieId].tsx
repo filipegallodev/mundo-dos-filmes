@@ -11,6 +11,7 @@ const Movie = () => {
 
   const [movieData, setMovieData] = React.useState<any>();
   const [loading, setLoading] = React.useState(false);
+  const [favorite, setFavorite] = React.useState(false);
 
   React.useEffect(() => {
     async function fetchMovieData() {
@@ -48,6 +49,8 @@ const Movie = () => {
     if (!jsonLocalFavorites) {
       localStorage.setItem("favorite-movies", JSON.stringify([movieData.id]));
     }
+
+    handleFavoriteIcon();
   }
 
   function addFavorite(arrayLocalFavorites: any) {
@@ -61,6 +64,24 @@ const Movie = () => {
     return arrayLocalFavorites.slice();
   }
 
+  React.useEffect(() => {
+    handleFavoriteIcon();
+  }, [movieData]);
+
+  function handleFavoriteIcon() {
+    const jsonLocalFavorites = localStorage.getItem("favorite-movies");
+
+    if (jsonLocalFavorites && movieData) {
+      const arrayLocalFavorites = JSON.parse(jsonLocalFavorites);
+
+      if (arrayLocalFavorites.includes(movieData.id)) {
+        return setFavorite(true);
+      }
+    }
+
+    return setFavorite(false);
+  }
+
   if (loading) return <p>Carregando...</p>;
   return (
     <div>
@@ -69,6 +90,7 @@ const Movie = () => {
           <h2>
             {movieData.title} | ID: {movieId}
           </h2>
+          <p>Favoritado: {favorite ? "Sim" : "Não"}</p>
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
       ) : (
