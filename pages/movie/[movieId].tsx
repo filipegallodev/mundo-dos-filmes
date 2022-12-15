@@ -2,6 +2,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
 const Movie = () => {
   const router = useRouter();
   const { movieId } = router.query;
@@ -14,7 +17,7 @@ const Movie = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`
+          `${API_URL}/movie/${movieId}?api_key=${API_KEY}&language=pt-BR`
         );
         const data = await res.json();
         setMovieData(data);
