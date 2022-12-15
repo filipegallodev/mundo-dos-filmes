@@ -14,14 +14,14 @@ const MostPopular = () => {
       <h2>MostPopular</h2>
       <div>
         <ul>
-          <li id="1" onClick={handleMovieRoute}>
-            Filme 1
+          <li id="297761" onClick={handleMovieRoute}>
+            Esquadrão Suicida
           </li>
-          <li id="2" onClick={handleMovieRoute}>
-            Filme 2
+          <li id="324668" onClick={handleMovieRoute}>
+            Jason Bourne
           </li>
-          <li id="3" onClick={handleMovieRoute}>
-            Filme 3
+          <li id="209112" onClick={handleMovieRoute}>
+            Batman vs Superman: A Origem da Justiça
           </li>
         </ul>
       </div>
