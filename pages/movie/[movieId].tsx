@@ -8,18 +8,27 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Movie = () => {
   const router = useRouter();
-  const { movieId } = router.query;
+  const [selectedMovieId, setSelectedMovieId] = React.useState<any>();
+
+  React.useEffect(() => {
+    const { movieId } = router.query;
+    if (movieId) {
+      setSelectedMovieId(movieId);
+    }
+  }, [router]);
 
   const [movieData, setMovieData] = React.useState<any>();
   const [loading, setLoading] = React.useState(false);
   const [favorite, setFavorite] = React.useState(false);
 
   React.useEffect(() => {
+    if (!selectedMovieId) return;
+
     async function fetchMovieData() {
       try {
         setLoading(true);
         const res = await fetch(
-          `${API_URL}/movie/${movieId}?api_key=${API_KEY}&language=pt-BR`
+          `${API_URL}/movie/${selectedMovieId}?api_key=${API_KEY}&language=pt-BR`
         );
         const data = await res.json();
         setMovieData(data);
@@ -30,7 +39,7 @@ const Movie = () => {
       }
     }
     fetchMovieData();
-  }, [movieId]);
+  }, [selectedMovieId]);
 
   function handleFavoriteMovies() {
     const jsonLocalFavorites = localStorage.getItem("favorite-movies");
@@ -93,7 +102,7 @@ const Movie = () => {
             alt={movieData.title}
           />
           <h2>
-            {movieData.title} | ID: {movieId}
+            {movieData.title} | ID: {selectedMovieId}
           </h2>
           <p>{movieData.tagline}</p>
           <p>
