@@ -38,17 +38,17 @@ const MostPopular = () => {
     <div>
       <h2>MostPopular</h2>
       <div>
-        <ul>
-          {popularMoviesData ? (
-            popularMoviesData.map((movie: any) => (
+        {popularMoviesData ? (
+          <ul>
+            {popularMoviesData.map((movie: any) => (
               <li key={movie.id} id={movie.id} onClick={handleMovieRoute}>
                 {movie.title}
               </li>
-            ))
-          ) : (
-            <p>Nada encontrado.</p>
-          )}
-        </ul>
+            ))}
+          </ul>
+        ) : (
+          <p>Nada encontrado.</p>
+        )}
       </div>
     </div>
   );

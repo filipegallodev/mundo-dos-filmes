@@ -49,13 +49,15 @@ const FavoriteMovies = () => {
       <h2>FavoriteMovies</h2>
       <ul>
         {favoriteMoviesData ? (
-          favoriteMoviesData.map((movie: any) => (
-            <li key={movie.id} id={movie.id} onClick={handleMovieRoute}>
-              {movie.title}
-            </li>
-          ))
+          <ul>
+            {favoriteMoviesData.map((movie: any) => (
+              <li key={movie.id} id={movie.id} onClick={handleMovieRoute}>
+                {movie.title}
+              </li>
+            ))}
+          </ul>
         ) : (
-          <li>Nada encontrado.</li>
+          <p>Nada encontrado.</p>
         )}
       </ul>
     </div>
