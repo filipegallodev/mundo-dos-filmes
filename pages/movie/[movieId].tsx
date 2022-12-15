@@ -18,6 +18,7 @@ const Movie = () => {
   }, [router]);
 
   const [movieData, setMovieData] = React.useState<any>();
+  const [movieWatchProviders, setMovieWatchProviders] = React.useState<any>();
   const [loading, setLoading] = React.useState(false);
   const [favorite, setFavorite] = React.useState(false);
 
@@ -39,7 +40,25 @@ const Movie = () => {
       }
     }
     fetchMovieData();
+
+    async function fetchMovieWatchProviders() {
+      try {
+        setLoading(true);
+        const res = await fetch(
+          `${API_URL}/movie/${selectedMovieId}/watch/providers?api_key=${API_KEY}`
+        );
+        const data = await res.json();
+        setMovieWatchProviders(data.results.BR);
+      } catch (err) {
+        console.log("Seguinte erro encontrado: " + err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMovieWatchProviders();
   }, [selectedMovieId]);
+
+  console.log(movieWatchProviders);
 
   function handleFavoriteMovies() {
     const jsonLocalFavorites = localStorage.getItem("favorite-movies");
@@ -98,8 +117,9 @@ const Movie = () => {
       {movieData ? (
         <div>
           <img
-            src={`https://image.tmdb.org/t/p/w500${movieData.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
             alt={movieData.title}
+            style={{ maxWidth: "100%", height: "auto" }}
           />
           <h2>
             {movieData.title} | ID: {selectedMovieId}
@@ -126,6 +146,28 @@ const Movie = () => {
               ? movieData.overview
               : "Nenhuma descrição fornecida."}
           </p>
+          {movieWatchProviders ? (
+            <>
+              {movieWatchProviders.flatrate ? (
+                <>
+                  <h3>Onde assistir</h3>
+                  <ul>
+                    {movieWatchProviders.flatrate.map((rentProvider: any) => (
+                      <li key={rentProvider.id}>
+                        <Image
+                          src={`https://image.tmdb.org/t/p/original${rentProvider.logo_path}`}
+                          alt={rentProvider.provider_name}
+                          width={100}
+                          height={100}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                  <span>Fonte: JustWatch</span>
+                </>
+              ) : null}
+            </>
+          ) : null}
           <h3>Informações extras</h3>
           <p>
             Orçamento:{" "}
