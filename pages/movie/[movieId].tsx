@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -5,6 +6,7 @@ import React from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const FACEBOOK_API = process.env.NEXT_PUBLIC_FACEBOOK_API;
 
 const Movie = () => {
   const router = useRouter();
@@ -116,9 +118,32 @@ const Movie = () => {
   }
 
   if (loading) return <p>Carregando...</p>;
-  return (
-    <div>
-      {movieData ? (
+  if (movieData) {
+    return (
+      <div>
+        <Head>
+          <title>Mundo dos Filmes | {movieData.title}</title>
+          <meta name="description" content="Mundo dos filmes" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+          <meta
+            property="og:url"
+            content={`https://mundo-dos-filmes.vercel.app${router.asPath}`}
+          />
+          <meta property="og:type" content="article" />
+          <meta
+            property="og:title"
+            content={`Mundo dos Filmes | ${movieData.title}`}
+          />
+          <meta property="og:description" content={movieData.tagline} />
+          <meta
+            property="og:image"
+            content={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
+          />
+
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
         <div>
           <img
             src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
@@ -198,15 +223,30 @@ const Movie = () => {
               Compartilhar no Twitter
             </a>
           </button>
+          <button>
+            <a
+              href={`https://www.facebook.com/dialog/share?href=https://mundo-dos-filmes.vercel.app${router.asPath}&app_id=${FACEBOOK_API}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Compartilhar no Facebook
+            </a>
+          </button>
           <button onClick={handleShareLink}>Compartilhar</button>
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
-      ) : (
+
+        <Link href="/">Voltar</Link>
+      </div>
+    );
+  } else {
+    return (
+      <div>
         <p>Nada encontrado.</p>
-      )}
-      <Link href="/">Voltar</Link>
-    </div>
-  );
+        <Link href="/">Voltar</Link>
+      </div>
+    );
+  }
 };
 
 export default Movie;
