@@ -3,8 +3,6 @@ import FavoriteMovies from "../components/Movies/FavoriteMovies";
 import MostPopular from "../components/Movies/MostPopular";
 import SearchMovies from "../components/Movies/SearchMovies";
 
-import styles from "../styles/Home.module.css";
-
 export default function Home() {
   return (
     <>

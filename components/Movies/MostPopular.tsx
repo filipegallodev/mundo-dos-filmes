@@ -7,6 +7,8 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const MostPopular = () => {
   const router = useRouter();
 
+  const carousel = React.useRef<any>();
+
   const [popularMoviesData, setPopularMoviesData] = React.useState<any>();
   const [loading, setLoading] = React.useState(false);
 
@@ -33,19 +35,43 @@ const MostPopular = () => {
     router.push(`/movie/${movieId}`);
   }
 
+  // Move o carousel para a esquerda
+  function carouselLeftClick(e: any) {
+    e.preventDefault();
+    carousel.current.scrollLeft -= window.innerWidth + 180;
+  }
+
+  // Move o carousel para a direita
+  function carouselRightClick(e: any) {
+    e.preventDefault();
+    console.log(window.innerWidth);
+    carousel.current.scrollLeft +=
+      window.innerWidth - (window.innerWidth <= 500 ? 120 : 480);
+  }
+
   if (loading) return <p>Carregando...</p>;
   return (
     <div>
-      <h2>MostPopular</h2>
-      <div>
+      <h2>Populares no momento</h2>
+      <div className="teste">
         {popularMoviesData ? (
-          <ul>
-            {popularMoviesData.map((movie: any) => (
-              <li key={movie.id} id={movie.id} onClick={handleMovieRoute}>
-                {movie.title}
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="movies-container-horizontal" ref={carousel}>
+              {popularMoviesData.map((movie: any) => (
+                <li key={movie.id}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    alt={movie.title}
+                    style={{ height: "360px" }}
+                    id={movie.id}
+                    onClick={handleMovieRoute}
+                  />
+                </li>
+              ))}
+            </ul>
+            <button onClick={carouselLeftClick}>Anterior</button>
+            <button onClick={carouselRightClick}>Próximo</button>
+          </>
         ) : (
           <p>Nada encontrado.</p>
         )}
