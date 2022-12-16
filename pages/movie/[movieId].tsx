@@ -189,6 +189,15 @@ const Movie = () => {
               ? "Sem dados de receita."
               : `R$ ${movieData.revenue.toLocaleString("pt-BR")},00`}
           </p>
+          <button>
+            <a
+              href={`https://twitter.com/intent/tweet?text=Veja%20o%20que%20estou%20assistindo:&url=https://mundo-dos-filmes.vercel.app${router.asPath}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Compartilhar no Twitter
+            </a>
+          </button>
           <button onClick={handleShareLink}>Compartilhar</button>
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
