@@ -3,6 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { Checkbox } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
+import styles from "../../styles/MoviePage.module.css";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -120,7 +125,7 @@ const Movie = () => {
   if (loading) return <p>Carregando...</p>;
   if (movieData) {
     return (
-      <div>
+      <>
         <Head>
           <title>Mundo dos Filmes | {movieData.title}</title>
           <meta
@@ -132,106 +137,130 @@ const Movie = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <div>
-          <img
-            src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
-            alt={movieData.title}
-            style={{
-              width: "100%",
-              maxWidth: "1200px",
-              height: "auto",
-            }}
-          />
-          <h2>{movieData.title}</h2>
-          <p>{movieData.tagline}</p>
-          <p>
-            Duração:{Math.floor(movieData.runtime / 60)} horas{" "}
-            {Math.floor(movieData.runtime % 60)} minutos
-          </p>
-          <h3>Detalhes</h3>
-          <p>
-            Ano: {movieData.release_date.replace(/(\d+)\-(\d+)\-(\d+)/g, `$1`)}
-          </p>
-          <p>
-            Gênero:{" "}
-            {movieData.genres.map((genre: any) => (
-              <span key={genre.name}>{genre.name} </span>
-            ))}
-          </p>
-          <p>Nota: {movieData.vote_average.toFixed(1)}</p>
-          <p>Favoritado: {favorite ? "Sim" : "Não"}</p>
-          <p>
-            {movieData.overview
-              ? movieData.overview
-              : "Nenhuma descrição fornecida."}
-          </p>
-          {movieWatchProviders ? (
-            <>
-              {movieWatchProviders.flatrate ? (
-                <>
-                  <h3>Onde assistir</h3>
-                  <ul>
-                    {movieWatchProviders.flatrate.map(
-                      (rentProvider: any, index: any) => (
-                        <li key={index}>
-                          <Image
-                            src={`https://image.tmdb.org/t/p/original${rentProvider.logo_path}`}
-                            alt={rentProvider.provider_name}
-                            width={100}
-                            height={100}
-                          />
-                        </li>
-                      )
-                    )}
-                  </ul>
-                  <span>Fonte: JustWatch</span>
-                </>
-              ) : null}
-            </>
-          ) : null}
-          <h3>Informações extras</h3>
-          <p>
-            Orçamento:{" "}
-            {movieData.budget === 0
-              ? "Sem dados de orçamento."
-              : `R$ ${movieData.budget.toLocaleString("pt-BR")},00`}
-          </p>
-          <p>
-            Receita:{" "}
-            {movieData.revenue === 0
-              ? "Sem dados de receita."
-              : `R$ ${movieData.revenue.toLocaleString("pt-BR")},00`}
-          </p>
-          <button>
-            <a
-              href={`https://twitter.com/intent/tweet?text=Veja%20o%20que%20estou%20assistindo:&url=https://mundo-dos-filmes.vercel.app${router.asPath}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Compartilhar no Twitter
-            </a>
-          </button>
-          <button>
-            <a
-              href={`https://www.facebook.com/dialog/share?href=https://mundo-dos-filmes.vercel.app${router.asPath}&app_id=${FACEBOOK_API}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Compartilhar no Facebook
-            </a>
-          </button>
-          <button onClick={handleShareLink}>Compartilhar</button>
-          <button onClick={handleFavoriteMovies}>Favoritar</button>
-        </div>
+        <main className={styles.moviePage}>
+          <div>
+            <div className={styles.imageCover}>
+              <img
+                src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
+                alt={movieData.title}
+              />
+            </div>
 
-        <Link href="/">Voltar</Link>
-      </div>
+            <div className={styles.titleContainer}>
+              <div>
+                <h2>{movieData.title}</h2>
+                <span>{movieData.tagline}</span>
+              </div>
+
+              <Checkbox
+                className={styles.favoriteCheckbox}
+                onClick={handleFavoriteMovies}
+                icon={<FavoriteBorderIcon className={styles.favoriteIcon} />}
+                checkedIcon={
+                  <FavoriteIcon className={styles.favoriteIconChecked} />
+                }
+                checked={favorite ? true : false}
+              />
+            </div>
+
+            <div className={styles.overviewContainer}>
+              <h3>Visão Geral</h3>
+              <p>
+                {movieData.overview
+                  ? movieData.overview
+                  : "Nenhuma descrição fornecida."}
+              </p>
+            </div>
+
+            <div className={styles.detailsContainer}>
+              <h3>Detalhes</h3>
+              <ul>
+                <li>
+                  <strong>Avaliação:</strong>{" "}
+                  {movieData.vote_average.toFixed(1)}
+                </li>
+                <li>
+                  <strong>Duração:</strong> {Math.floor(movieData.runtime / 60)}
+                  h {Math.floor(movieData.runtime % 60)}min
+                </li>
+                <li>
+                  <strong>Ano:</strong>{" "}
+                  {movieData.release_date.replace(/(\d+)\-(\d+)\-(\d+)/g, `$1`)}
+                </li>
+              </ul>
+            </div>
+
+            <div className={styles.gendersContainer}>
+              <h3>Gêneros</h3>{" "}
+              <ul>
+                {movieData.genres.map((genre: any) => (
+                  <li key={genre.name}>{genre.name} </li>
+                ))}
+              </ul>
+            </div>
+
+            {movieWatchProviders ? (
+              <>
+                {movieWatchProviders.flatrate ? (
+                  <div className={styles.providersContainer}>
+                    <h3>Onde assistir</h3>
+                    <ul>
+                      {movieWatchProviders.flatrate.map(
+                        (rentProvider: any, index: any) => (
+                          <li key={index}>
+                            <Image
+                              src={`https://image.tmdb.org/t/p/original${rentProvider.logo_path}`}
+                              alt={rentProvider.provider_name}
+                              width={100}
+                              height={100}
+                            />
+                          </li>
+                        )
+                      )}
+                    </ul>
+                    <span>Fonte: JustWatch</span>
+                  </div>
+                ) : null}
+              </>
+            ) : null}
+
+            <div>
+              <h3>Compartilhar</h3>
+              <div className={styles.shareContainer}>
+                <a
+                  href={`https://twitter.com/intent/tweet?text=Veja%20o%20que%20estou%20assistindo:&url=https://mundo-dos-filmes.vercel.app${router.asPath}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className={styles.twitterButton}>Twitter</button>
+                </a>
+                <a
+                  href={`https://www.facebook.com/dialog/share?href=https://mundo-dos-filmes.vercel.app${router.asPath}&app_id=${FACEBOOK_API}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className={styles.facebookButton}>Facebook</button>
+                </a>
+                <button className={styles.copyButton} onClick={handleShareLink}>
+                  Copiar Link
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <Link href="/">
+            <button className={styles.returnButton}>Voltar</button>
+          </Link>
+        </main>
+      </>
     );
   } else {
     return (
       <div>
         <p>Nada encontrado.</p>
-        <Link href="/">Voltar</Link>
+        <Link href="/">
+          <button className={styles.returnButton}>Voltar</button>
+        </Link>
       </div>
     );
   }
