@@ -13,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="main-container">
         <MostPopular />
         <FavoriteMovies />
         <SearchMovies />

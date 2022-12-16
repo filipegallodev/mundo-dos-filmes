@@ -7,6 +7,8 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const FavoriteMovies = () => {
   const router = useRouter();
 
+  const carousel = React.useRef<any>();
+
   const [favoriteMoviesData, setFavoriteMoviesData] = React.useState<any>([]);
   const [loading, setLoading] = React.useState(false);
 
@@ -43,19 +45,41 @@ const FavoriteMovies = () => {
     router.push(`/movie/${movieId}`);
   }
 
+  // Move carousel to the left
+  function carouselLeftClick(e: any) {
+    e.preventDefault();
+    carousel.current.scrollLeft -= window.innerWidth + 180;
+  }
+
+  // Move carousel to the right
+  function carouselRightClick(e: any) {
+    e.preventDefault();
+    carousel.current.scrollLeft +=
+      window.innerWidth - (window.innerWidth <= 500 ? 120 : 540);
+  }
+
   if (loading) return <p>Carregando...</p>;
   return (
     <div>
-      <h2>FavoriteMovies</h2>
-      <ul>
+      <h2>Meus favoritos</h2>
+      <ul className="movies-container">
         {favoriteMoviesData ? (
-          <ul>
-            {favoriteMoviesData.map((movie: any) => (
-              <li key={movie.id} id={movie.id} onClick={handleMovieRoute}>
-                {movie.title}
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="movies-carousel" ref={carousel}>
+              {favoriteMoviesData.map((movie: any) => (
+                <li key={movie.id}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    alt={movie.title}
+                    id={movie.id}
+                    onClick={handleMovieRoute}
+                  />
+                </li>
+              ))}
+            </ul>
+            <button onClick={carouselLeftClick}>Anterior</button>
+            <button onClick={carouselRightClick}>Próximo</button>
+          </>
         ) : (
           <p>Nada encontrado.</p>
         )}

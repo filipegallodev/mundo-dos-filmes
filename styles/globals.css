@@ -1,23 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap");
 
-.teste {
+.main-container h2 {
+  margin: 32px 5% 12px;
+  color: #fff595;
+}
+
+.movies-container {
   margin: 0 5%;
 }
 
-.movies-container-horizontal {
+.movies-carousel {
   background-color: #000c15;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 16px;
+  padding: 0 96px 0 48px;
   width: 100%;
   scroll-behavior: smooth;
   overflow: auto;
   overflow: hidden;
 }
 
-.movies-container-horizontal li img {
+.movies-carousel li img {
+  height: 360px;
   margin: 16px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
   border-radius: 6px;
@@ -26,7 +33,7 @@
   transition: 0.3s;
 }
 
-.movies-container-horizontal li img:hover {
+.movies-carousel li img:hover {
   transform: scale(1.0125);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
   border: 2px solid #fd7;

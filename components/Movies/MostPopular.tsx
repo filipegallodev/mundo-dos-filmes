@@ -35,34 +35,33 @@ const MostPopular = () => {
     router.push(`/movie/${movieId}`);
   }
 
-  // Move o carousel para a esquerda
+  // Move carousel to the left
   function carouselLeftClick(e: any) {
     e.preventDefault();
-    carousel.current.scrollLeft -= window.innerWidth + 180;
+    carousel.current.scrollLeft -=
+      window.innerWidth - (window.innerWidth <= 500 ? 80 : 480);
   }
 
-  // Move o carousel para a direita
+  // Move carousel to the right
   function carouselRightClick(e: any) {
     e.preventDefault();
-    console.log(window.innerWidth);
     carousel.current.scrollLeft +=
-      window.innerWidth - (window.innerWidth <= 500 ? 120 : 480);
+      window.innerWidth - (window.innerWidth <= 500 ? 120 : 540);
   }
 
   if (loading) return <p>Carregando...</p>;
   return (
     <div>
       <h2>Populares no momento</h2>
-      <div className="teste">
+      <div className="movies-container">
         {popularMoviesData ? (
           <>
-            <ul className="movies-container-horizontal" ref={carousel}>
+            <ul className="movies-carousel" ref={carousel}>
               {popularMoviesData.map((movie: any) => (
                 <li key={movie.id}>
                   <img
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                     alt={movie.title}
-                    style={{ height: "360px" }}
                     id={movie.id}
                     onClick={handleMovieRoute}
                   />
