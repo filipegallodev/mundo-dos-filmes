@@ -58,8 +58,6 @@ const Movie = () => {
     fetchMovieWatchProviders();
   }, [selectedMovieId]);
 
-  console.log(movieWatchProviders);
-
   function handleFavoriteMovies() {
     const jsonLocalFavorites = localStorage.getItem("favorite-movies");
 
@@ -111,6 +109,12 @@ const Movie = () => {
     return setFavorite(false);
   }
 
+  function handleShareLink() {
+    navigator.clipboard.writeText(
+      `https://mundo-dos-filmes.vercel.app${router.asPath}`
+    );
+  }
+
   if (loading) return <p>Carregando...</p>;
   return (
     <div>
@@ -119,11 +123,13 @@ const Movie = () => {
           <img
             src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
             alt={movieData.title}
-            style={{ maxWidth: "100%", height: "auto" }}
+            style={{
+              width: "100%",
+              maxWidth: "1200px",
+              height: "auto",
+            }}
           />
-          <h2>
-            {movieData.title} | ID: {selectedMovieId}
-          </h2>
+          <h2>{movieData.title}</h2>
           <p>{movieData.tagline}</p>
           <p>
             Duração:{Math.floor(movieData.runtime / 60)} horas{" "}
@@ -152,16 +158,18 @@ const Movie = () => {
                 <>
                   <h3>Onde assistir</h3>
                   <ul>
-                    {movieWatchProviders.flatrate.map((rentProvider: any) => (
-                      <li key={rentProvider.id}>
-                        <Image
-                          src={`https://image.tmdb.org/t/p/original${rentProvider.logo_path}`}
-                          alt={rentProvider.provider_name}
-                          width={100}
-                          height={100}
-                        />
-                      </li>
-                    ))}
+                    {movieWatchProviders.flatrate.map(
+                      (rentProvider: any, index: any) => (
+                        <li key={index}>
+                          <Image
+                            src={`https://image.tmdb.org/t/p/original${rentProvider.logo_path}`}
+                            alt={rentProvider.provider_name}
+                            width={100}
+                            height={100}
+                          />
+                        </li>
+                      )
+                    )}
                   </ul>
                   <span>Fonte: JustWatch</span>
                 </>
@@ -181,6 +189,7 @@ const Movie = () => {
               ? "Sem dados de receita."
               : `R$ ${movieData.revenue.toLocaleString("pt-BR")},00`}
           </p>
+          <button onClick={handleShareLink}>Compartilhar</button>
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
       ) : (
