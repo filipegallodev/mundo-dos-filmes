@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import MovieHead from "../../components/Movies/MovieHead";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -118,10 +117,21 @@ const Movie = () => {
     );
   }
 
+  if (loading) return <p>Carregando...</p>;
   if (movieData) {
     return (
       <div>
-        <MovieHead movieData={movieData} router={router} />
+        <Head>
+          <title>Mundo dos Filmes | {movieData.title}</title>
+          <meta
+            name="description"
+            content={`Mundo dos Filmes | ${movieData.title} | ${movieData.overview}`}
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
         <div>
           <img
             src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
@@ -214,6 +224,13 @@ const Movie = () => {
           <button onClick={handleFavoriteMovies}>Favoritar</button>
         </div>
 
+        <Link href="/">Voltar</Link>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <p>Nada encontrado.</p>
         <Link href="/">Voltar</Link>
       </div>
     );
