@@ -69,7 +69,7 @@ const FavoriteMovies = () => {
               {favoriteMoviesData.map((movie: any) => (
                 <li key={movie.id}>
                   <img
-                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
                     alt={movie.title}
                     id={movie.id}
                     onClick={handleMovieRoute}
