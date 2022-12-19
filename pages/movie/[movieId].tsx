@@ -146,7 +146,7 @@ const Movie = () => {
           <div>
             <div className={styles.imageCover}>
               <img
-                src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
+                src={`https://image.tmdb.org/t/p/w1280/${movieData.backdrop_path}`}
                 alt={movieData.title}
               />
             </div>
