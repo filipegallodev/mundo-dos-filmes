@@ -49,7 +49,7 @@ const SearchMovies = () => {
     <div className="movies-search">
       <h2>Pesquisa de filmes</h2>
       <form>
-        <input type="text" id="search-movie" ref={searchInput} />
+        <input type="text" id="search-movie" ref={searchInput} placeholder="Nome do filme..." required/>
         <button onClick={handleSearch}>Pesquisar</button>
       </form>
       {searchMovieData ? (
@@ -58,7 +58,7 @@ const SearchMovies = () => {
             Mostrando <strong>{searchMovieData.total_results}</strong>{" "}
             resultados para {'"'}
             {search}
-            {'"'}:.
+            {'"'}:
           </p>
           <ul className="movies-results-container">
             {searchMovieData.results.map((movie: any) => (
