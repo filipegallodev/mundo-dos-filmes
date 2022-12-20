@@ -23,6 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .titleContainer h2 {
@@ -186,5 +187,11 @@
 @media (max-width: 1280px) {
   .moviePage {
     margin: 0 24px;
+  }
+}
+
+@media (max-width: 850px) {
+  .titleContainer .favoriteCheckbox {
+    margin-top: 24px;
   }
 }
