@@ -19,7 +19,7 @@
 }
 
 .titleContainer {
-  padding: 32px;
+  margin: 32px 0 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
