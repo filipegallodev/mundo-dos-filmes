@@ -63,7 +63,6 @@
 .detailsContainer ul,
 .providersContainer ul,
 .gendersContainer ul {
-  margin: 0 12px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -94,7 +93,7 @@
 
 .providersContainer span {
   display: block;
-  margin: 12px;
+  margin: 12px 0;
   font-weight: 300;
 }
 
@@ -148,7 +147,7 @@
   border: none;
   border-radius: 4px;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 300;
   cursor: pointer;
   transition: 0.3s;
@@ -173,7 +172,7 @@
 }
 
 .moviePage p {
-  margin: 12px;
+  margin: 12px 0;
   font-size: 1.35rem;
   font-weight: 300;
 }

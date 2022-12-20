@@ -39,14 +39,16 @@ const MostPopular = () => {
   function carouselLeftClick(e: any) {
     e.preventDefault();
     carousel.current.scrollLeft -=
-      window.innerWidth - (window.innerWidth <= 500 ? 80 : 480);
+      window.innerWidth -
+      (window.innerWidth <= 500 ? 80 : window.innerWidth < 800 ? 180 : 480);
   }
 
   // Move carousel to the right
   function carouselRightClick(e: any) {
     e.preventDefault();
     carousel.current.scrollLeft +=
-      window.innerWidth - (window.innerWidth <= 500 ? 120 : 540);
+      window.innerWidth -
+      (window.innerWidth <= 500 ? 150 : window.innerWidth < 800 ? 240 : 540);
   }
 
   if (loading) return <p>Carregando...</p>;
@@ -68,8 +70,10 @@ const MostPopular = () => {
                 </li>
               ))}
             </ul>
-            <button onClick={carouselLeftClick}>Anterior</button>
-            <button onClick={carouselRightClick}>Próximo</button>
+            <div className="movies-container-buttons">
+              <button onClick={carouselLeftClick}>Anterior</button>
+              <button onClick={carouselRightClick}>Próximo</button>
+            </div>
           </>
         ) : (
           <p>Nada encontrado.</p>

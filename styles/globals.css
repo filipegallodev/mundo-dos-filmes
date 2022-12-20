@@ -9,6 +9,30 @@
   margin: 0 5%;
 }
 
+.movies-container-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+
+.movies-container-buttons button {
+  padding: 12px 24px;
+  background-color: #735cdd;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 300;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.movies-container-buttons button:hover {
+  background-color: #6349d6;
+}
+
 .movies-carousel {
   background-color: #000c15;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
@@ -21,6 +45,9 @@
   scroll-behavior: smooth;
   overflow: auto;
   overflow: hidden;
+  /* make it smooth on iOS */
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: mandatory;
 }
 
 .movies-carousel li img {
