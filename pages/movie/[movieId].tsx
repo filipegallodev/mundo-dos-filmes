@@ -261,6 +261,21 @@ const Movie = () => {
           <Link href="/">
             <button className={styles.returnButton}>Voltar</button>
           </Link>
+          <footer>
+            <div>
+              <p>
+                Desenvolvido por{" "}
+                <a
+                  href="https://filipegallo.dev/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Filipe
+                </a>
+                .
+              </p>
+            </div>
+          </footer>
         </main>
       </>
     );
@@ -271,6 +286,21 @@ const Movie = () => {
         <Link href="/">
           <button className={styles.returnButton}>Voltar</button>
         </Link>
+        <footer>
+          <div>
+            <p>
+              Desenvolvido por{" "}
+              <a
+                href="https://filipegallo.dev/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Filipe
+              </a>
+              .
+            </p>
+          </div>
+        </footer>
       </div>
     );
   }

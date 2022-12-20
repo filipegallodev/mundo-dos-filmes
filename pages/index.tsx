@@ -14,10 +14,23 @@ export default function Home() {
       </Head>
 
       <main className="main-container">
+        <h1 className="main-title">Mundo dos Filmes</h1>
         <MostPopular />
         <FavoriteMovies />
         <SearchMovies />
       </main>
+
+      <footer>
+        <div>
+          <p>
+            Desenvolvido por{" "}
+            <a href="https://filipegallo.dev/" target="_blank" rel="noreferrer">
+              Filipe
+            </a>
+            .
+          </p>
+        </div>
+      </footer>
     </>
   );
 }
