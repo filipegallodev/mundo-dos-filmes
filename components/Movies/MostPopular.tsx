@@ -48,7 +48,7 @@ const MostPopular = () => {
     e.preventDefault();
     carousel.current.scrollLeft +=
       window.innerWidth -
-      (window.innerWidth <= 500 ? 150 : window.innerWidth < 800 ? 240 : 540);
+      (window.innerWidth <= 500 ? 110 : window.innerWidth < 800 ? 240 : 540);
   }
 
   if (loading) return <p>Carregando...</p>;

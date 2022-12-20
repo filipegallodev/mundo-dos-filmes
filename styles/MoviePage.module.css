@@ -65,6 +65,7 @@
 .gendersContainer ul {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
@@ -111,6 +112,7 @@
 .shareContainer {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -179,4 +181,10 @@
 
 .moviePage li strong {
   font-weight: 500;
+}
+
+@media (max-width: 1280px) {
+  .moviePage {
+    margin: 0 24px;
+  }
 }
