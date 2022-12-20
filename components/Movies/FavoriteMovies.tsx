@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 
+import noCover from "../../public/no-cover.jpg";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -72,7 +74,9 @@ const FavoriteMovies = () => {
               {favoriteMoviesData.map((movie: any) => (
                 <li key={movie.id}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                    src={
+                      `https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                      
                     alt={movie.title}
                     id={movie.id}
                     onClick={handleMovieRoute}

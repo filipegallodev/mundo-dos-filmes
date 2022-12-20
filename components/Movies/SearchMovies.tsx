@@ -46,23 +46,29 @@ const SearchMovies = () => {
 
   if (loading) return <p>Carregando...</p>;
   return (
-    <div>
-      <h2>SearchMovies</h2>
+    <div className="movies-search">
+      <h2>Pesquisa de filmes</h2>
       <form>
         <input type="text" id="search-movie" ref={searchInput} />
         <button onClick={handleSearch}>Pesquisar</button>
       </form>
       {searchMovieData ? (
         <>
-          <span>
-            Mostrando {searchMovieData.total_results} resultados para {'"'}
+          <p>
+            Mostrando <strong>{searchMovieData.total_results}</strong>{" "}
+            resultados para {'"'}
             {search}
             {'"'}:.
-          </span>
-          <ul>
+          </p>
+          <ul className="movies-results-container">
             {searchMovieData.results.map((movie: any) => (
-              <li key={movie.id} id={movie.id} onClick={handleMovieRoute}>
-                {movie.title}
+              <li key={movie.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                  alt={movie.title}
+                  id={movie.id}
+                  onClick={handleMovieRoute}
+                />
               </li>
             ))}
           </ul>

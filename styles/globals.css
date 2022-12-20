@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap");
 
-.main-container h2 {
-  margin: 32px 5% 12px;
-  color: #fff595;
+.main-container {
+  margin: 32px 5%;
 }
 
-.movies-container {
-  margin: 0 5%;
+.main-container h2 {
+  margin: 32px 0 12px;
+  color: #fff595;
 }
 
 .movies-container-buttons {
@@ -16,7 +16,8 @@
   margin: 16px 0;
 }
 
-.movies-container-buttons button {
+.movies-container-buttons button,
+.movies-search button {
   padding: 12px 24px;
   background-color: #735cdd;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
@@ -29,7 +30,8 @@
   transition: 0.3s;
 }
 
-.movies-container-buttons button:hover {
+.movies-container-buttons button:hover,
+.movies-search button:hover {
   background-color: #6349d6;
 }
 
@@ -50,7 +52,8 @@
   scroll-snap-type: mandatory;
 }
 
-.movies-carousel li img {
+.movies-carousel li img,
+.movies-results-container li img {
   height: 360px;
   margin: 16px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
@@ -60,10 +63,61 @@
   transition: 0.3s;
 }
 
-.movies-carousel li img:hover {
+.movies-carousel li img:hover,
+.movies-results-container li img:hover {
   transform: scale(1.0125);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
   border: 2px solid #fd7;
+}
+
+.movies-search {
+  min-height: 720px;
+}
+
+.movies-search form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.movies-search input {
+  padding: 8px;
+  font-size: 1.25rem;
+  border-radius: 4px;
+  border: 1px solid #222;
+  transition: 0.3s;
+}
+
+.movies-search input:hover {
+  border: 1px solid #6349d6;
+}
+
+.movies-search button {
+  padding: 8px 18px;
+  font-size: 1.125rem;
+}
+
+.movies-search p {
+  margin: 8px 0;
+  font-size: 1.125rem;
+}
+
+.movies-results-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.movies-results-container li img {
+  height: 320px;
+  margin: 8px 0;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  border: 2px solid #222;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 * {
@@ -89,4 +143,15 @@ a {
 
 li {
   list-style: none;
+}
+
+@media (max-width: 510px) {
+  .movies-results-container {
+    gap: 8px;
+  }
+
+  .movies-results-container li img {
+    height: 240px;
+    margin: 0;
+  }
 }
