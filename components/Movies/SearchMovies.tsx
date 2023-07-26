@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-const API_URL = "https://api.themoviedb.org/3";
-const API_KEY = "a1de05a3f9e92d77d658807c765e2345";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const SearchMovies = () => {
   const router = useRouter();
@@ -82,7 +82,7 @@ const SearchMovies = () => {
           </ul>
         </>
       ) : (
-        searchInput.length > 0 && <p>Nada encontrado</p>
+        <p>Experimente buscar por algum filme!</p>
       )}
     </div>
   );
