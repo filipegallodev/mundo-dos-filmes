@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_URL = "https://api.themoviedb.org/3";
+const API_KEY = "a1de05a3f9e92d77d658807c765e2345";
 
 const MostPopular = () => {
   const router = useRouter();
@@ -51,7 +52,6 @@ const MostPopular = () => {
       (window.innerWidth <= 500 ? 110 : window.innerWidth < 800 ? 240 : 540);
   }
 
-  if (loading) return <p>Carregando...</p>;
   return (
     <div>
       <h2>Populares no momento</h2>
@@ -66,7 +66,23 @@ const MostPopular = () => {
                     alt={movie.title}
                     id={movie.id}
                     onClick={handleMovieRoute}
+                    loading="lazy"
+                    className="image-placeholder"
                   />
+                </li>
+              ))}
+            </ul>
+            <div className="movies-container-buttons">
+              <button onClick={carouselLeftClick}>Anterior</button>
+              <button onClick={carouselRightClick}>Próximo</button>
+            </div>
+          </>
+        ) : loading ? (
+          <>
+            <ul className="movies-carousel" ref={carousel}>
+              {Array.from(new Array(10)).map((item, index) => (
+                <li key={index}>
+                  <img className="image-placeholder" />
                 </li>
               ))}
             </ul>

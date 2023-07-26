@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_URL = "https://api.themoviedb.org/3";
+const API_KEY = "a1de05a3f9e92d77d658807c765e2345";
 
 const SearchMovies = () => {
   const router = useRouter();
@@ -49,7 +49,13 @@ const SearchMovies = () => {
     <div className="movies-search">
       <h2>Pesquisa de filmes</h2>
       <form>
-        <input type="text" id="search-movie" ref={searchInput} placeholder="Nome do filme..." required/>
+        <input
+          type="text"
+          id="search-movie"
+          ref={searchInput}
+          placeholder="Nome do filme..."
+          required
+        />
         <button onClick={handleSearch}>Pesquisar</button>
       </form>
       {searchMovieData ? (
@@ -68,13 +74,15 @@ const SearchMovies = () => {
                   alt={movie.title}
                   id={movie.id}
                   onClick={handleMovieRoute}
+                  loading="lazy"
+                  className="image-placeholder"
                 />
               </li>
             ))}
           </ul>
         </>
       ) : (
-        <p>Nada encontrado</p>
+        searchInput.length > 0 && <p>Nada encontrado</p>
       )}
     </div>
   );

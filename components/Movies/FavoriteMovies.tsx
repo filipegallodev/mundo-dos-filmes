@@ -1,10 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-import noCover from "../../public/no-cover.jpg";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_URL = "https://api.themoviedb.org/3";
+const API_KEY = "a1de05a3f9e92d77d658807c765e2345";
 
 const FavoriteMovies = () => {
   const router = useRouter();
@@ -63,23 +61,22 @@ const FavoriteMovies = () => {
       (window.innerWidth <= 500 ? 110 : window.innerWidth < 800 ? 240 : 540);
   }
 
-  if (loading) return <p>Carregando...</p>;
   return (
     <div>
       <h2>Meus favoritos</h2>
-      <ul className="movies-container">
-        {favoriteMoviesData ? (
+      <div className="movies-container">
+        {favoriteMoviesData.length > 0 ? (
           <>
             <ul className="movies-carousel" ref={carousel}>
               {favoriteMoviesData.map((movie: any) => (
                 <li key={movie.id}>
                   <img
-                    src={
-                      `https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-                      
+                    src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
                     alt={movie.title}
                     id={movie.id}
                     onClick={handleMovieRoute}
+                    loading="lazy"
+                    className="image-placeholder"
                   />
                 </li>
               ))}
@@ -89,10 +86,24 @@ const FavoriteMovies = () => {
               <button onClick={carouselRightClick}>Próximo</button>
             </div>
           </>
+        ) : loading ? (
+          <>
+            <ul className="movies-carousel" ref={carousel}>
+              {Array.from(new Array(10)).map((item, index) => (
+                <li key={index}>
+                  <img className="image-placeholder" />
+                </li>
+              ))}
+            </ul>
+            <div className="movies-container-buttons">
+              <button onClick={carouselLeftClick}>Anterior</button>
+              <button onClick={carouselRightClick}>Próximo</button>
+            </div>
+          </>
         ) : (
-          <p>Nada encontrado.</p>
+          <p>Nenhum filme favorito encontrado.</p>
         )}
-      </ul>
+      </div>
     </div>
   );
 };
