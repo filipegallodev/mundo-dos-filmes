@@ -2,6 +2,7 @@ import Head from "next/head";
 import FavoriteMovies from "../components/Movies/FavoriteMovies";
 import MostPopular from "../components/Movies/MostPopular";
 import SearchMovies from "../components/Movies/SearchMovies";
+import Footer from "../components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -20,17 +21,7 @@ export default function Home() {
         <SearchMovies />
       </main>
 
-      <footer>
-        <div>
-          <p>
-            Desenvolvido por{" "}
-            <a href="https://filipegallo.dev/" target="_blank" rel="noreferrer">
-              Filipe
-            </a>
-            .
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

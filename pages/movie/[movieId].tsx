@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-
 import { Checkbox } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -11,8 +10,8 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ShareIcon from "@mui/icons-material/Share";
-
 import styles from "../../styles/MoviePage.module.css";
+import Footer from "../../components/Footer/Footer";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -129,44 +128,32 @@ const Movie = () => {
 
   if (loading)
     return (
-      <main className={styles.moviePage}>
-        <div>
-          <div className={styles.imageCoverContainer}>
-            <img className={styles.imagePlaceholder} />
-          </div>
-
-          <div className={styles.titleContainer}>
-            <h2>Carregando...</h2>
-            <Checkbox
-              className={styles.favoriteCheckbox}
-              onClick={handleFavoriteMovies}
-              icon={<FavoriteBorderIcon className={styles.favoriteIcon} />}
-              checkedIcon={
-                <FavoriteIcon className={styles.favoriteIconChecked} />
-              }
-              checked={favorite ? true : false}
-            />
-          </div>
-        </div>
-        <Link href="/">
-          <button className={styles.returnButton}>Voltar</button>
-        </Link>
-        <footer>
+      <>
+        <main className={styles.moviePage}>
           <div>
-            <p>
-              Desenvolvido por{" "}
-              <a
-                href="https://filipegallo.dev/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Filipe
-              </a>
-              .
-            </p>
+            <div className={styles.imageCoverContainer}>
+              <img className={styles.imagePlaceholder} />
+            </div>
+
+            <div className={styles.titleContainer}>
+              <h2>Carregando...</h2>
+              <Checkbox
+                className={styles.favoriteCheckbox}
+                onClick={handleFavoriteMovies}
+                icon={<FavoriteBorderIcon className={styles.favoriteIcon} />}
+                checkedIcon={
+                  <FavoriteIcon className={styles.favoriteIconChecked} />
+                }
+                checked={favorite ? true : false}
+              />
+            </div>
           </div>
-        </footer>
-      </main>
+          <Link href="/">
+            <button className={styles.returnButton}>Voltar</button>
+          </Link>
+        </main>
+        <Footer />
+      </>
     );
   if (movieData) {
     return (
@@ -303,22 +290,8 @@ const Movie = () => {
           <Link href="/">
             <button className={styles.returnButton}>Voltar</button>
           </Link>
-          <footer>
-            <div>
-              <p>
-                Desenvolvido por{" "}
-                <a
-                  href="https://filipegallo.dev/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Filipe
-                </a>
-                .
-              </p>
-            </div>
-          </footer>
         </main>
+        <Footer />
       </>
     );
   } else {
@@ -328,21 +301,7 @@ const Movie = () => {
         <Link href="/">
           <button className={styles.returnButton}>Voltar</button>
         </Link>
-        <footer>
-          <div>
-            <p>
-              Desenvolvido por{" "}
-              <a
-                href="https://filipegallo.dev/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Filipe
-              </a>
-              .
-            </p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     );
   }
