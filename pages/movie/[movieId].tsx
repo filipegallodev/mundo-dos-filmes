@@ -127,7 +127,47 @@ const Movie = () => {
     );
   }
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading)
+    return (
+      <main className={styles.moviePage}>
+        <div>
+          <div className={styles.imageCoverContainer}>
+            <img className={styles.imagePlaceholder} />
+          </div>
+
+          <div className={styles.titleContainer}>
+            <h2>Carregando...</h2>
+            <Checkbox
+              className={styles.favoriteCheckbox}
+              onClick={handleFavoriteMovies}
+              icon={<FavoriteBorderIcon className={styles.favoriteIcon} />}
+              checkedIcon={
+                <FavoriteIcon className={styles.favoriteIconChecked} />
+              }
+              checked={favorite ? true : false}
+            />
+          </div>
+        </div>
+        <Link href="/">
+          <button className={styles.returnButton}>Voltar</button>
+        </Link>
+        <footer>
+          <div>
+            <p>
+              Desenvolvido por{" "}
+              <a
+                href="https://filipegallo.dev/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Filipe
+              </a>
+              .
+            </p>
+          </div>
+        </footer>
+      </main>
+    );
   if (movieData) {
     return (
       <>
@@ -144,10 +184,12 @@ const Movie = () => {
 
         <main className={styles.moviePage}>
           <div>
-            <div className={styles.imageCover}>
+            <div className={styles.imageCoverContainer}>
               <img
                 src={`https://image.tmdb.org/t/p/w1280/${movieData.backdrop_path}`}
                 alt={movieData.title}
+                loading="lazy"
+                className={styles.imagePlaceholder + " " + styles.image}
               />
             </div>
 
